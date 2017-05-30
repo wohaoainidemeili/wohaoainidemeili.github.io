@@ -90,13 +90,16 @@
 
 
 
+<meta name="description" content="OGC SWE全称 Sensor Web Enablement,是OGC提出的传感器建模与服务标准，分为建模标准与服务标准两部分。  *建模标准  +建模标准有传感器建模语言SenorML(Sensor Model Language),  +传感器观测与测量建模语言O&amp;amp;M(Observation and Measurement),  +传感器常用数据模型编码标准SWECommon(SWE">
 <meta property="og:type" content="article">
-<meta property="og:title" content="我的测试文章">
+<meta property="og:title" content="OGC SWE传感器网络服务之异构传感器观测数据接入与异常探测">
 <meta property="og:url" content="http://yoursite.com/2017/05/23/我的测试文章/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:updated_time" content="2017-05-23T04:33:46.828Z">
+<meta property="og:description" content="OGC SWE全称 Sensor Web Enablement,是OGC提出的传感器建模与服务标准，分为建模标准与服务标准两部分。  *建模标准  +建模标准有传感器建模语言SenorML(Sensor Model Language),  +传感器观测与测量建模语言O&amp;amp;M(Observation and Measurement),  +传感器常用数据模型编码标准SWECommon(SWE">
+<meta property="og:updated_time" content="2017-05-30T08:56:18.772Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="我的测试文章">
+<meta name="twitter:title" content="OGC SWE传感器网络服务之异构传感器观测数据接入与异常探测">
+<meta name="twitter:description" content="OGC SWE全称 Sensor Web Enablement,是OGC提出的传感器建模与服务标准，分为建模标准与服务标准两部分。  *建模标准  +建模标准有传感器建模语言SenorML(Sensor Model Language),  +传感器观测与测量建模语言O&amp;amp;M(Observation and Measurement),  +传感器常用数据模型编码标准SWECommon(SWE">
 
 
 
@@ -130,7 +133,7 @@
 
 
 
-  <title>我的测试文章 | Hexo</title>
+  <title>OGC SWE传感器网络服务之异构传感器观测数据接入与异常探测 | Hexo</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -197,7 +200,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            Home
           </a>
         </li>
       
@@ -207,7 +210,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -267,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">我的测试文章</h1>
+          <h1 class="post-title" itemprop="name headline">OGC SWE传感器网络服务之异构传感器观测数据接入与异常探测</h1>
         
 
         <div class="post-meta">
@@ -277,7 +280,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-23T12:24:16+08:00">
                 2017-05-23
@@ -314,7 +317,20 @@
       
 
       
-        
+        <p><a href="http://www.opengeospatial.org/ogc/markets-technologies/swe/" target="_blank" rel="external">OGC SWE</a>全称 Sensor Web Enablement,是OGC提出的传感器建模与服务标准，分为建模标准与服务标准两部分。</p>
+<blockquote>
+<p>*建模标准<br>  +建模标准有传感器建模语言<a href="http://www.opengeospatial.org/standards/sensorML/" target="_blank" rel="external">SenorML</a>(Sensor Model Language),<br>  +传感器观测与测量建模语言<a href="http://www.opengeospatial.org/standards/om" target="_blank" rel="external">O&amp;M</a>(Observation and Measurement),<br>  +传感器常用数据模型编码标准<a href="http://www.opengeospatial.org/standards/swecommon" target="_blank" rel="external">SWECommon</a>(SWE Common Data Model Encoding Standard)<br>  +事件建模语言<a href="http://portal.opengeospatial.org/files/?artifact_id=29566" target="_blank" rel="external">EML</a>(Event Pattern Markup Language,该建模语言尚处于discussion paper状态)</p>
+</blockquote>
+<p> *服务标准<br>  +传感器观测服务<a href="http://www.opengeospatial.org/standards/sos" target="_blank" rel="external">SOS</a>(Sensor Observation Service)<br>  +传感器异常探测服务<a href="http://portal.opengeospatial.org/files/?artifact_id=29576" target="_blank" rel="external">SES</a>(Sensor Event Service)<br>  +传感器处理服务<a href="http://portal.opengeospatial.org/files/?artifact_id=32766" target="_blank" rel="external">WPS</a>(Web Processing Service)</p>
+<blockquote>
+<p>+传感器规划服务<a href="http://www.opengeospatial.org/standards/sps" target="_blank" rel="external">SPS</a>(Sensor Planning Service)</p>
+</blockquote>
+<hr>
+<h2 id="由于本人对SOS与SES两种服务研究较多，本文主要讲述这两种传感器工作原理"><a href="#由于本人对SOS与SES两种服务研究较多，本文主要讲述这两种传感器工作原理" class="headerlink" title="由于本人对SOS与SES两种服务研究较多，本文主要讲述这两种传感器工作原理"></a>由于本人对SOS与SES两种服务研究较多，本文主要讲述这两种传感器工作原理</h2><blockquote>
+<p>*传感器观测数据接入服务(SOS)<br>   传感器数据观测接入服务实习并非由单纯的由SOS标准实现，其包含了Sensor Markup Language、O&amp;M、SWECommon与Sensor Observation Service四个SWE标准，其中前三者主要是用于实现传感器建模与传感器观测数据建模，<br>Sensor Observation Service服务标准用于提供传感器观测服务请求标准，如GetCapabilities,RegisterSensor,DescribeSensor,InserObservation,GetObservation等服务。</p>
+</blockquote>
+<p>源码地址使用52North发布的SOS开源版本：<a href="http://52north.org/downloads/category/3-sos" target="_blank" rel="external">http://52north.org/downloads/category/3-sos</a></p>
+
       
     </div>
 
@@ -389,8 +405,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -406,7 +431,7 @@
             <div class="site-state-item site-state-posts">
               <a href="/archives">
                 <span class="site-state-item-count">1</span>
-                <span class="site-state-item-name">Artikel</span>
+                <span class="site-state-item-name">posts</span>
               </a>
             </div>
           
@@ -435,6 +460,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#由于本人对SOS与SES两种服务研究较多，本文主要讲述这两种传感器工作原理"><span class="nav-number">1.</span> <span class="nav-text">由于本人对SOS与SES两种服务研究较多，本文主要讲述这两种传感器工作原理</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -460,7 +501,7 @@
 
 
 <div class="powered-by">
-  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
