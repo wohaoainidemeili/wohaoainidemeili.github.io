@@ -90,13 +90,16 @@
 
 
 
+<meta name="description" content="在测试时http请求可运行，而到了真实运行环境时报错。  1.运行环境与测试环境编码问题在我们使用java ide时经常会出现，中文在测试环境上正常而到cmd下运行时乱码的问题。这一问题的产生是由于在ide环境下，默认编码为ide环境设置的编码，而在运行环境下使用的系统默认编码。具体可参照Charset.defaultCharset()由什么决定这一说明文档。 2.问题原因由于URL使用了URLE">
 <meta property="og:type" content="article">
 <meta property="og:title" content="http请求之URL乱码问题">
 <meta property="og:url" content="http://yoursite.com/2017/05/31/http请求之URL乱码问题/index.html">
 <meta property="og:site_name" content="梦之墨色">
-<meta property="og:updated_time" content="2017-05-31T02:54:03.118Z">
+<meta property="og:description" content="在测试时http请求可运行，而到了真实运行环境时报错。  1.运行环境与测试环境编码问题在我们使用java ide时经常会出现，中文在测试环境上正常而到cmd下运行时乱码的问题。这一问题的产生是由于在ide环境下，默认编码为ide环境设置的编码，而在运行环境下使用的系统默认编码。具体可参照Charset.defaultCharset()由什么决定这一说明文档。 2.问题原因由于URL使用了URLE">
+<meta property="og:updated_time" content="2017-06-01T14:14:43.681Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="http请求之URL乱码问题">
+<meta name="twitter:description" content="在测试时http请求可运行，而到了真实运行环境时报错。  1.运行环境与测试环境编码问题在我们使用java ide时经常会出现，中文在测试环境上正常而到cmd下运行时乱码的问题。这一问题的产生是由于在ide环境下，默认编码为ide环境设置的编码，而在运行环境下使用的系统默认编码。具体可参照Charset.defaultCharset()由什么决定这一说明文档。 2.问题原因由于URL使用了URLE">
 
 
 
@@ -197,7 +200,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -207,7 +210,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -277,7 +280,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-31T10:54:03+08:00">
                 2017-05-31
@@ -314,7 +317,12 @@
       
 
       
-        
+        <p>在测试时http请求可运行，而到了真实运行环境时报错。</p>
+<hr>
+<h2 id="1-运行环境与测试环境编码问题"><a href="#1-运行环境与测试环境编码问题" class="headerlink" title="1.运行环境与测试环境编码问题"></a>1.运行环境与测试环境编码问题</h2><p>在我们使用java ide时经常会出现，中文在测试环境上正常而到cmd下运行时乱码的问题。<br>这一问题的产生是由于在ide环境下，默认编码为ide环境设置的编码，而在运行环境下使用的系统默认编码。具体可参照<a href="http://blog.csdn.net/u013476542/article/details/52958858" target="_blank" rel="external">Charset.defaultCharset()由什么决定</a>这一说明文档。</p>
+<h2 id="2-问题原因"><a href="#2-问题原因" class="headerlink" title="2.问题原因"></a>2.问题原因</h2><p>由于URL使用了<code>URLEncoder.encode()</code>方法，选用了默认编码方式，如<code>URLEncoder.encode(&quot;中文&quot;)</code>，在测试环境下，由于设置了File.Encoding=UTF-8,导致URL可以被正常转换成UTF-8编码，进行http请求时能够正确返回（具体可参照<a href="http://www.ruanyifeng.com/blog/2010/02/url_encoding.html" target="_blank" rel="external">阮一峰关于URL编码</a>中提到，当中文为URL一部分的时候采用utf-8编码），而系统默认采用GBK编码，会导致URL编码错误，无法得到正确解析。</p>
+<h2 id="3-解决方案"><a href="#3-解决方案" class="headerlink" title="3.解决方案"></a>3.解决方案</h2><p>使用<code>URLEncoder.encode()</code>两个参数的方法，具体指明utf-8编码即可，<code>URLEncoder.encode(&quot;中文&quot;,&quot;utf-8&quot;)</code>。</p>
+
       
     </div>
 
@@ -405,8 +413,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Übersicht
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -422,7 +439,7 @@
             <div class="site-state-item site-state-posts">
               <a href="/archives">
                 <span class="site-state-item-count">2</span>
-                <span class="site-state-item-name">posts</span>
+                <span class="site-state-item-name">Artikel</span>
               </a>
             </div>
           
@@ -451,6 +468,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-运行环境与测试环境编码问题"><span class="nav-number">1.</span> <span class="nav-text">1.运行环境与测试环境编码问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-问题原因"><span class="nav-number">2.</span> <span class="nav-text">2.问题原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-解决方案"><span class="nav-number">3.</span> <span class="nav-text">3.解决方案</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -476,7 +509,7 @@
 
 
 <div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
