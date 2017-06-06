@@ -10,6 +10,10 @@
 
     <!--Description-->
     
+        <meta name="description" content="Java中生产者消费者，消费者多线程并发问题
+
+synchronized 读写操作锁锁的实现必须要实现操作的原子性与可见性，原子性。synchronized是支持同步的java修饰，当一个对象被加入synchronized修饰时，则被修饰部分的代码块在读写过程中对其他线程是否可用呢？是对读写都不可用">
+    
 
     <!--Author-->
     
@@ -18,7 +22,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="java多线程问题理解"/>
+        <meta property="og:title" content="java synchronized代码块锁定问题测试"/>
     
 
     <!--Open Graph Description-->
@@ -40,7 +44,7 @@
 
     <!-- Title -->
     
-    <title>java多线程问题理解 - 梦之墨色</title>
+    <title>java synchronized代码块锁定问题测试 - 梦之墨色</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -144,8 +148,8 @@
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2017/06/02/java多线程问题理解/">
-                java多线程问题理解
+            <a href="/2017/06/02/java synchronized代码块锁定问题测试/">
+                java synchronized代码块锁定问题测试
             </a>
         </h1>
         <div class="post-info">
@@ -163,7 +167,16 @@
         
 
         <!-- Post Content -->
-        
+        <p>Java中生产者消费者，消费者多线程并发问题</p>
+<hr>
+<h1 id="synchronized-读写操作锁"><a href="#synchronized-读写操作锁" class="headerlink" title="synchronized 读写操作锁"></a>synchronized 读写操作锁</h1><p>锁的实现必须要实现操作的原子性与可见性，原子性。synchronized是支持同步的java修饰，当一个对象被加入synchronized修饰时，则被修饰部分的代码块在读写过程中对其他线程是否可用呢？是对读写都不可用吗？</p>
+<p>这里我们做一个简单的实验。实验的思想是，生产者生产数据，即数据量增加，消费者当数据量增加到一定程度时，这里以10为上限，开始输出当前线程名称。</p>
+<h2 id="1-当消费者在内部代码部分不使用该对象时，查看执行效率。"><a href="#1-当消费者在内部代码部分不使用该对象时，查看执行效率。" class="headerlink" title="1.    当消费者在内部代码部分不使用该对象时，查看执行效率。"></a>1.    当消费者在内部代码部分不使用该对象时，查看执行效率。</h2><h2 id="2-当消费者代码块内部使用该对象时（读或写），查看输出名称效率。"><a href="#2-当消费者代码块内部使用该对象时（读或写），查看输出名称效率。" class="headerlink" title="2.    当消费者代码块内部使用该对象时（读或写），查看输出名称效率。"></a>2.    当消费者代码块内部使用该对象时（读或写），查看输出名称效率。</h2><p>如果输出名称没有延迟性，则说明当代码块中不涉及该对象操作时，不影响内部其他操作；如果输出线程名称出现明显延迟，则说明无论内部是否使用该对象都产生影响。</p>
+<p>生产者代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Created by Yuan on 2017/6/6.</div><div class="line"> */</div><div class="line">public class TestProducer implements Runnable &#123;</div><div class="line"></div><div class="line">    TestStorage testStorage;</div><div class="line">    public TestProducer(TestStorage testStorage)&#123;</div><div class="line">        this.testStorage=testStorage;</div><div class="line">    &#125;</div><div class="line">    public void run() &#123;</div><div class="line">        testStorage.produce();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>消费者代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Created by Yuan on 2017/6/6.</div><div class="line"> */</div><div class="line">public class TestConsumer implements Runnable &#123;</div><div class="line">    TestStorage testStorage;</div><div class="line">    public TestConsumer(TestStorage testStorage)&#123;</div><div class="line">        this.testStorage=testStorage;</div><div class="line">    &#125;</div><div class="line">    public void run() &#123;</div><div class="line">        testStorage.consume();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>仓库代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">public class TestStorage &#123;</div><div class="line">    private AtomicInteger atomicInteger=new AtomicInteger(0);</div><div class="line">    public void produce()&#123;</div><div class="line">        synchronized (atomicInteger) &#123;</div><div class="line">            if (atomicInteger.get() != 10)</div><div class="line">                atomicInteger.getAndAdd(1);</div><div class="line">            atomicInteger.notifyAll();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    public void consume()&#123;</div><div class="line">        synchronized (atomicInteger)</div><div class="line">        &#123;</div><div class="line">            while (atomicInteger.get()!=10)&#123;</div><div class="line">                try &#123;</div><div class="line">                    atomicInteger.wait();</div><div class="line">                &#125; catch (InterruptedException e) &#123;</div><div class="line">                    e.printStackTrace();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            System.out.println(Thread.currentThread().getName());</div><div class="line">			//1.不使用atomicInteger测试</div><div class="line">            for (int i=0;i&lt;1000000000;i++)&#123;</div><div class="line">                long wo=+i;</div><div class="line">                long ni=wo;</div><div class="line">            &#125;</div><div class="line">//			//2.读取测试</div><div class="line">//			for (int i=0;i&lt;1000000000;i++)&#123;</div><div class="line">//                long wo=atomicInteger.get();</div><div class="line">//                long ni=wo;</div><div class="line">//            &#125;</div><div class="line">//			//3.写入测试</div><div class="line">//			for (int i=0;i&lt;1000000000;i++)&#123;</div><div class="line">//                long wo=atomicInteger.getAndAdd(10);</div><div class="line">//                long ni=wo;</div><div class="line">//            &#125;</div><div class="line">            try &#123;</div><div class="line">                atomicInteger.wait(10000);</div><div class="line">            &#125; catch (InterruptedException e) &#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>经测试，在synchronized代码块中间，不使用锁定对象时，可以支持多线程异步并发执行；当使用锁定对象时，无论读写均会锁定该对象。</p>
+
     </div>
 
     
@@ -199,7 +212,7 @@
         <ul>
             
             <li>
-                <a class="footer-post" href="/2017/06/02/java多线程问题理解/">java多线程问题理解</a>
+                <a class="footer-post" href="/2017/06/02/java synchronized代码块锁定问题测试/">java synchronized代码块锁定问题测</a>
             </li>
             
             <li>
